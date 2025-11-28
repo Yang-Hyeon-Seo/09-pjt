@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1>SSAFY 뉴스 검색기</h1>
+            <form id="search">
+            {% comment %} <form action="{% url 'news:search' %}" method="GET" name="query" id='search'> {% endcomment %}
+            {% comment %} <form action="" method="GET" name="query"> {% endcomment %}
+                <input type="text" v-model="searchInput">
+                {% comment %} {{ form }} {% endcomment %}
+                <input type="submit">
+            </form>
+        </div>
+        <div>
+            <ul id="news-list">
+            </ul>
+        </div>
+    </div>
+
+
+    <script src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const { createApp, ref } = Vue
+
+        const app = createApp({
+            setup () {
+                console.log('시작')
+
+                const newsList = document.querySelector('#news-list')
+                const searchForm = document.querySelector('#search')
+
+                const searchInput = ref('')
+                
+                console.log('변수선언')
+
+                const response = axios({
+                    method: 'get',
+                    url: '/news/getData/',
+                    // query: searchInput
+                })
+                .then((response) => {
+                    console.log(response)
+                    
+                }).catch((error) => {
+                    console.error(error)
+                })
+                
+                //searchForm.add
+
+            }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+</html>
